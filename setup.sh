@@ -41,7 +41,10 @@ echo "Symlinks created."
 
 echo ""
 echo "Configuring git..."
+# set global ignore file
 git config --global core.excludesfile ~/.gitignore_global
+# show info about submodules when running 'git status' from parent directory
+git config --global status.submoduleSummary true
 echo "What is your name?"
 read input_name
 git config --global user.name "${input_name}"
