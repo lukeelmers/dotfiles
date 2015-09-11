@@ -14,7 +14,8 @@
 #  4) Generates SSH keys if they don't exist yet.
 #  5) Installs Homebrew & everything included in Brewfile.
 #  6) Symlinks neovim dotfiles to vim dotfiles (nvim is installed in Brewfile).
-#  7) Sets up a MAMP-like local dev environment by running environment.sh.
+#  7) Installs Ruby (with rbenv) & Rails
+#  8) Sets up a MAMP-like local dev environment by running environment.sh.
 
 
 # settings
@@ -93,6 +94,23 @@ brew doctor
 echo "Creating nvim dotfiles based on vim dotfiles..."
 ln -s $dir/.vimrc ~/.nvimrc
 ln -s $dir/.vim ~/.nvim
+
+# Install Xcode command line tools (required for Rails)
+xcode-select --install
+
+echo ''
+echo 'Installing Ruby...'
+echo ''
+rbenv install 2.2.3
+rbenv global 2.2.3
+ruby -v
+
+echo ''
+echo 'Installing Rails (requires sudo)...'
+echo ''
+sudo gem install rails -v 4.2.3
+rbenv rehash
+rails -v
 
 echo ''
 echo 'Setting up local dev environment...'
