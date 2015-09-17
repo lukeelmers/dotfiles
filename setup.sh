@@ -87,8 +87,8 @@ createdb
 
 brew doctor
 
-# May be required to install neovim
-# sudo pip2 install neovim
+# Required for neovim to work with python (needed for Tern and YCM plugins)
+sudo pip2 install neovim
 
 # point neovim dotfiles to vim dotfiles
 echo "Creating nvim dotfiles based on vim dotfiles..."
