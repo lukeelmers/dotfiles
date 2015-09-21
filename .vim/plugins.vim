@@ -40,6 +40,7 @@ Plug 'cakebaker/scss-syntax.vim'                                                
 Plug 'gorodinskiy/vim-coloresque'                                                   " highlight color names and hex codes
 Plug 'pangloss/vim-javascript'                                                      " js syntax highlighting
 Plug 'mxw/vim-jsx'                                                                  " react jsx highlighting
+Plug 'kchmck/vim-coffee-script'                                                     " coffeescript syntax highlighting
 Plug 'othree/html5.vim'                                                             " html5 syntax
 Plug 'suan/vim-instant-markdown', { 'do': 'npm -g install instant-markdown-d' }     " instant previews of markdown files
 Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }                                " js code completion
