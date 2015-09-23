@@ -15,6 +15,9 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 # $ cd ~ && git clone https://github.com/mxcl/homebrew.git && ln -s /usr/local/bin ~/homebrew/bin
 # PATH=${HOME}/Homebrew/bin:${PATH}
 
+# Include /usr/local/sbin in PATH to prevent Homebrew warnings
+PATH="/usr/local/sbin:$PATH"
+
 export PATH
 
 # Case-insensitive globbing (used in pathname expansion)
