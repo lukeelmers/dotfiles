@@ -31,8 +31,6 @@ cat >> $(brew --prefix)/etc/my.cnf <<'EOF'
 # Modifications for local dev environment
 max_allowed_packet = 1073741824
 innodb_file_per_table = 1
-log = ~/Sites/logs/mysqld.log
-log-error = ~/Sites/logs/mysqld.error.log
 EOF
 
 # Uncomment the sample option for innodb_buffer_pool_size to improve performance:
