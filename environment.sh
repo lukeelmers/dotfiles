@@ -157,15 +157,15 @@ NameVirtualHost *:8443
 ## Manual VirtualHost template for HTTP and HTTPS
 #<VirtualHost *:8080>
 #  ServerName project.dev
-#  CustomLog "${USERHOME}/Sites/logs/project.dev-access_log" combined
-#  ErrorLog "${USERHOME}/Sites/logs/project.dev-error_log"
+#  CustomLog "${USERHOME}/Sites/logs/project.dev-access.log" combined
+#  ErrorLog "${USERHOME}/Sites/logs/project.dev-error.log"
 #  DocumentRoot "${USERHOME}/Sites/project.dev"
 #</VirtualHost>
 #<VirtualHost *:8443>
 #  ServerName project.dev
 #  Include "${USERHOME}/Sites/ssl/ssl-shared-cert.inc"
-#  CustomLog "${USERHOME}/Sites/logs/project.dev-access_log" combined
-#  ErrorLog "${USERHOME}/Sites/logs/project.dev-error_log"
+#  CustomLog "${USERHOME}/Sites/logs/project.dev-access.log" combined
+#  ErrorLog "${USERHOME}/Sites/logs/project.dev-error.log"
 #  DocumentRoot "${USERHOME}/Sites/project.dev"
 #</VirtualHost>
  
@@ -184,8 +184,8 @@ LogFormat "%V %h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" comb
   ServerName dev
   ServerAlias *.dev
  
-  CustomLog "${USERHOME}/Sites/logs/dev-access_log" combinedmassvhost
-  ErrorLog "${USERHOME}/Sites/logs/dev-error_log"
+  CustomLog "${USERHOME}/Sites/logs/dev-access.log" combinedmassvhost
+  ErrorLog "${USERHOME}/Sites/logs/dev-error.log"
  
   VirtualDocumentRoot ${USERHOME}/Sites/%-2+
 </VirtualHost>
@@ -194,8 +194,8 @@ LogFormat "%V %h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" comb
   ServerAlias *.dev
   Include "${USERHOME}/Sites/ssl/ssl-shared-cert.inc"
  
-  CustomLog "${USERHOME}/Sites/logs/dev-access_log" combinedmassvhost
-  ErrorLog "${USERHOME}/Sites/logs/dev-error_log"
+  CustomLog "${USERHOME}/Sites/logs/dev-access.log" combinedmassvhost
+  ErrorLog "${USERHOME}/Sites/logs/dev-error.log"
  
   VirtualDocumentRoot ${USERHOME}/Sites/%-2+
 </VirtualHost>
@@ -261,7 +261,7 @@ brew install homebrew/php/php55
 
 # Set timezone (requires sudo), change a few PHP settings, and add error log
 echo 'Configuring PHP...'
-(export USERHOME=$(dscl . -read /Users/`whoami` NFSHomeDirectory | awk -F"\: " '{print $2}') ; sed -i '-default' -e 's|^;\(date\.timezone[[:space:]]*=\).*|\1 \"'$(sudo systemsetup -gettimezone|awk -F"\: " '{print $2}')'\"|; s|^\(memory_limit[[:space:]]*=\).*|\1 512M|; s|^\(post_max_size[[:space:]]*=\).*|\1 200M|; s|^\(upload_max_filesize[[:space:]]*=\).*|\1 100M|; s|^\(default_socket_timeout[[:space:]]*=\).*|\1 600|; s|^\(max_execution_time[[:space:]]*=\).*|\1 300|; s|^\(max_input_time[[:space:]]*=\).*|\1 600|; $a\'$'\n''\'$'\n''; PHP Error log\'$'\n''error_log = '$USERHOME'/Sites/logs/php-error_log'$'\n' $(brew --prefix)/etc/php/5.5/php.ini)
+(export USERHOME=$(dscl . -read /Users/`whoami` NFSHomeDirectory | awk -F"\: " '{print $2}') ; sed -i '-default' -e 's|^;\(date\.timezone[[:space:]]*=\).*|\1 \"'$(sudo systemsetup -gettimezone|awk -F"\: " '{print $2}')'\"|; s|^\(memory_limit[[:space:]]*=\).*|\1 512M|; s|^\(post_max_size[[:space:]]*=\).*|\1 200M|; s|^\(upload_max_filesize[[:space:]]*=\).*|\1 100M|; s|^\(default_socket_timeout[[:space:]]*=\).*|\1 600|; s|^\(max_execution_time[[:space:]]*=\).*|\1 300|; s|^\(max_input_time[[:space:]]*=\).*|\1 600|; $a\'$'\n''\'$'\n''; PHP Error log\'$'\n''error.log = '$USERHOME'/Sites/logs/php-error.log'$'\n' $(brew --prefix)/etc/php/5.5/php.ini)
 
 # Fix a pear and pecl permissions problem (github.com/Homebrew/homebrew-php/issues/1039#issuecomment-41307694):
 chmod -R ug+w $(brew --prefix php55)/lib/php
