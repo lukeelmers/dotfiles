@@ -95,6 +95,10 @@ echo "Creating nvim dotfiles based on vim dotfiles..."
 ln -s $dir/.vimrc ~/.nvimrc
 ln -s $dir/.vim ~/.nvim
 
+# insanely beautiful diffs: https://goo.gl/NJZnPk
+git config --global core.pager "bash -lc 'diff-highlight | strip_diff_leading_symbols | less -r' -"
+ln -sf "$(brew --prefix)/share/git-core/contrib/diff-highlight/diff-highlight" /usr/local/bin/diff-highlight
+
 # Install Xcode command line tools (required for Rails)
 xcode-select --install
 
