@@ -67,7 +67,7 @@ else
 endif
 " Set devicons guifont (must set in preferences if using non-gui terminal)
 if has('gui_running')
-  set guifont=Sauce\ Code\ Pro\ Plus\ Nerd\ File\ Types 16
+  set guifont=Sauce\ Code\ Pro\ Plus\ Nerd\ File\ Types\ 16
 endif
 " }}}
 
