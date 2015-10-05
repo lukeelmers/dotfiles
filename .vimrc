@@ -38,6 +38,9 @@ inoremap jj <ESC>
 " Let buffers exist in the background without being in a window.
 set hidden
 
+" Allow the . to execute once for each line of a visual selection
+vnoremap . :normal .<CR>
+
 " Change leader to a space
 let mapleader="\<Space>"
 
