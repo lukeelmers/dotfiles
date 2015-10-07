@@ -10,7 +10,6 @@ set encoding=utf8
 " GENERAL ------------------------------------------------------------------{{{
 
 set cursorline                  " Highlight underneath cursor
-set number                      " Line numbers
 set backspace=indent,eol,start  " Allow backspace in insert mode
 set visualbell                  " No sounds
 set autoread                    " Reload files changed outside vim
@@ -20,6 +19,11 @@ set history=1000                " Store lots of history
 set noswapfile                  " Disable .swp file creation
 set nobackup
 set nowb
+
+" Line numbers - use relative numbers unless we're in insert mode
+set number                      " Line numbers
+autocmd InsertEnter * silent! :set norelativenumber
+autocmd InsertLeave,BufNewFile,VimEnter * silent! :set relativenumber
 
 " Use tab key to match bracket or tag pairs
 nnoremap <tab> %
