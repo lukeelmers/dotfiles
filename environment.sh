@@ -7,9 +7,9 @@
 
 # Description:
 # This sets up Apache to run on boot on ports 8080 and 8443 with auto-VirtualHosts for directories in the ~/Sites folder and
-# PHP-FPM via mod_fastcgi. The OSX firewall will forward all port 80 traffic to port 8080 and port 443 to port 8443, so 
-# we don't have specify the port number when visiting web pages in local web browsers or run Apache as root. MySQL is 
-# installed and set to run on boot as well. DNSMasq and some OSX configuration is used to direct any hostname ending in 
+# PHP-FPM via mod_fastcgi. The OSX firewall will forward all port 80 traffic to port 8080 and port 443 to port 8443, so
+# we don't have specify the port number when visiting web pages in local web browsers or run Apache as root. MySQL is
+# installed and set to run on boot as well. DNSMasq and some OSX configuration is used to direct any hostname ending in
 # .dev to the local system to work in conjunction with Apache's auto-VirtualHosts.
 
 # Use Homebrew services
@@ -27,7 +27,7 @@ cp -v $(brew --prefix mysql)/support-files/my-default.cnf $(brew --prefix)/etc/m
 # Configure MySQL to allow for the maximum packet size (local dev only).
 # Also keep each InnoDB table in separate files to keep ibdataN-type file sizes low and make file-based backups easier to manage.
 cat >> $(brew --prefix)/etc/my.cnf <<'EOF'
- 
+
 # Modifications for local dev environment
 max_allowed_packet = 1073741824
 innodb_file_per_table = 1
@@ -64,40 +64,14 @@ sed -i '' '/fastcgi_module/d' $(brew --prefix)/etc/apache2/2.2/httpd.conf
 # Add the logic for Apache to send PHP to PHP-FPM with mod_fastcgi:
 echo 'Configuring Apache...'
 (export USERHOME=$(dscl . -read /Users/`whoami` NFSHomeDirectory | awk -F"\: " '{print $2}') ; export MODFASTCGIPREFIX=$(brew --prefix mod_fastcgi) ; cat >> $(brew --prefix)/etc/apache2/2.2/httpd.conf <<EOF
- 
+
 # Modifications for local dev environment
- 
-# Load PHP-FPM via mod_fastcgi
-LoadModule fastcgi_module    ${MODFASTCGIPREFIX}/libexec/mod_fastcgi.so
- 
-<IfModule fastcgi_module>
-  FastCgiConfig -maxClassProcesses 1 -idle-timeout 1500
- 
-  # Prevent accessing FastCGI alias paths directly
-  <LocationMatch "^/fastcgi">
-    <IfModule mod_authz_core.c>
-      Require env REDIRECT_STATUS
-    </IfModule>
-    <IfModule !mod_authz_core.c>
-      Order Deny,Allow
-      Deny from All
-      Allow from env=REDIRECT_STATUS
-    </IfModule>
-  </LocationMatch>
- 
-  FastCgiExternalServer /php-fpm -host 127.0.0.1:9000 -pass-header Authorization -idle-timeout 1500
-  ScriptAlias /fastcgiphp /php-fpm
-  Action php-fastcgi /fastcgiphp
- 
-  # Send PHP extensions to PHP-FPM
-  AddHandler php-fastcgi .php
- 
-  # PHP options
-  AddType text/html .php
-  AddType application/x-httpd-php .php
-  DirectoryIndex index.php index.html
-</IfModule>
- 
+
+# Send PHP extensions to mod_php
+AddHandler php5-script .php
+AddType text/html .php
+DirectoryIndex index.php index.html
+
 # Include our VirtualHosts
 Include ${USERHOME}/Sites/httpd-vhosts.conf
 EOF
@@ -117,13 +91,13 @@ touch ~/Sites/httpd-vhosts.conf
 #
 #Listen 8080  # defined in main httpd.conf
 Listen 8443
- 
+
 #
 # Use name-based virtual hosting.
 #
 NameVirtualHost *:8080
 NameVirtualHost *:8443
- 
+
 #
 # Set up permissions for VirtualHosts in ~/Sites
 #
@@ -138,8 +112,8 @@ NameVirtualHost *:8443
         Allow from all
     </IfModule>
 </Directory>
- 
-# For http://localhost in the users' Sites folder
+
+# For http://localhost in the users Sites folder
 <VirtualHost _default_:8080>
     ServerName localhost
     DocumentRoot "${USERHOME}/Sites"
@@ -149,11 +123,11 @@ NameVirtualHost *:8443
     Include "${USERHOME}/Sites/ssl/ssl-shared-cert.inc"
     DocumentRoot "${USERHOME}/Sites"
 </VirtualHost>
- 
+
 #
 # VirtualHosts
 #
- 
+
 ## Manual VirtualHost template for HTTP and HTTPS
 #<VirtualHost *:8080>
 #  ServerName project.dev
@@ -168,35 +142,35 @@ NameVirtualHost *:8443
 #  ErrorLog "${USERHOME}/Sites/logs/project.dev-error.log"
 #  DocumentRoot "${USERHOME}/Sites/project.dev"
 #</VirtualHost>
- 
+
 #
 # Automatic VirtualHosts
 #
 # A directory at ${USERHOME}/Sites/webroot can be accessed at http://webroot.dev
 # In Drupal, uncomment the line with: RewriteBase /
 #
- 
+
 # This log format will display the per-virtual-host as the first field followed by a typical log line
 LogFormat "%V %h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combinedmassvhost
- 
+
 # Auto-VirtualHosts with .dev
 <VirtualHost *:8080>
   ServerName dev
   ServerAlias *.dev
- 
+
   CustomLog "${USERHOME}/Sites/logs/dev-access.log" combinedmassvhost
   ErrorLog "${USERHOME}/Sites/logs/dev-error.log"
- 
+
   VirtualDocumentRoot ${USERHOME}/Sites/%-2+
 </VirtualHost>
 <VirtualHost *:8443>
   ServerName dev
   ServerAlias *.dev
   Include "${USERHOME}/Sites/ssl/ssl-shared-cert.inc"
- 
+
   CustomLog "${USERHOME}/Sites/logs/dev-access.log" combinedmassvhost
   ErrorLog "${USERHOME}/Sites/logs/dev-error.log"
- 
+
   VirtualDocumentRoot ${USERHOME}/Sites/%-2+
 </VirtualHost>
 EOF
@@ -257,7 +231,7 @@ sudo launchctl load -Fw /Library/LaunchDaemons/co.echo.httpdfwd.plist
 
 # Install PHP (change number below to specify a particular version)
 echo 'Installing PHP...'
-brew install homebrew/php/php55
+brew install homebrew/php/php55 --homebrew-apxs --with-apache
 
 # Set timezone (requires sudo), change a few PHP settings, and add error log
 echo 'Configuring PHP...'
