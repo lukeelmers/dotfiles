@@ -121,6 +121,9 @@ map <Leader>b :!open %<CR><CR>
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
+" Remove trailing whitespace
+nnoremap <Leader>rtw :%s/\s\+$//e<CR>
+
 " Additional settings for neovim
 if has('nvim')
   " Enter terminal emulator with <leader>t
