@@ -121,6 +121,7 @@ echo 'Installing global npm modules...'
 echo ''
 npm install -g bower
 npm install -g caniuse-cmd
+npm install -g coffee-script
 npm install -g generator-hubot
 npm install -g generator-mocha
 npm install -g generator-patternlab
@@ -129,6 +130,7 @@ npm install -g grunt
 npm install -g grunt-cli
 npm install -g grunt-serve
 npm install -g gulp
+npm install -g hubot
 npm install -g instant-markdown-d
 npm install -g spawn-sync
 npm install -g yo
