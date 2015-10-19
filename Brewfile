@@ -69,7 +69,7 @@ brew 'choppsv1/term24/tmux'
 brew 'homebrew/dupes/zlib'
 brew 'homebrew/apache/httpd22', args: ['with-mpm-event']
 brew 'homebrew/apache/mod_fastcgi', args: ['with-homebrew-httpd22']
-brew 'homebrew/php/php55', args: ['with-imap']
+brew 'homebrew/php/php55', args: ['with-homebrew-apxs']
 brew 'homebrew/php/php55-mcrypt'
 brew 'homebrew/php/php55-opcache'
 brew 'neovim/neovim/neovim', args: ['HEAD']
