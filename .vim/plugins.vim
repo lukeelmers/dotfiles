@@ -93,12 +93,13 @@ let g:instant_markdown_slow = 1
 
 " NERDTree {{{
 map <C-n> :NERDTreeToggle<CR>
-let NERDTreeDirArrows=1
-let NERDTreeShowHidden=1
-let NERDTreeAutoDeleteBuffer=1
-let NERDTreeShowBookmarks=1
-let NERDTreeMinimalUI=1
-let NERDTreeWinSize=40
+let NERDTreeDirArrows = 1
+let NERDTreeShowHidden = 1
+let NERDTreeAutoDeleteBuffer = 1
+let NERDTreeShowBookmarks = 1
+let NERDTreeMinimalUI = 1
+let NERDTreeWinSize = 40
+let NERDTreeChDirMode = 2
 " }}}
 
 " YouCompleteMe {{{
@@ -154,6 +155,7 @@ endif
 " }}}
 
 " Startify {{{
+let g:startify_change_to_dir = 0
 let g:startify_bookmarks = [ 
         \ '~/.vimrc',
         \ '~/.bash_profile',
