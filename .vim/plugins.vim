@@ -71,6 +71,10 @@ if has('gui_running')
 endif
 " }}}
 
+" Syntax Highlighting {{{
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+"  }}}
+
 " Smooth Scrolling {{{
 let g:SexyScroller_ScrollTime = 200
 let g:SexyScroller_CursorTime = 0
