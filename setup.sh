@@ -22,7 +22,7 @@
 dir=~/dotfiles                       # dotfiles directory
 olddir=~/dotfiles_backup             # old dotfiles backup directory
 # list of files/folders to symlink in home directory
-files=".bash_profile .bashrc .gitignore_global .shell_prompt.sh .vim .vimrc"
+files=".bash_profile .bashrc .gitignore_global .psqlrc .shell_prompt.sh .vim .vimrc"
 
 
 # create backup directory
