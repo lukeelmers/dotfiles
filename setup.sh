@@ -23,6 +23,8 @@ dir=~/dotfiles                       # dotfiles directory
 olddir=~/dotfiles_backup             # old dotfiles backup directory
 # list of files/folders to symlink in home directory
 files=".bash_profile .bashrc .gitignore_global .psqlrc .shell_prompt.sh .vim .vimrc"
+# create directory in order to install nvm via homebrew
+mkdir ~/.nvm
 
 
 # create backup directory
@@ -88,7 +90,7 @@ createdb
 brew doctor
 
 # Required for neovim to work with python (needed for Tern and YCM plugins)
-sudo pip2 install neovim
+# sudo pip2 install neovim
 
 # point neovim dotfiles to vim dotfiles
 echo "Creating nvim dotfiles based on vim dotfiles..."

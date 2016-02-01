@@ -34,6 +34,10 @@ source ~/.shell_prompt.sh
 # initialize rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
+# initialize nvm
+export NVM_DIR=~/.nvm
+. $(brew --prefix nvm)/nvm.sh
+
 # To install Homebrew in your Home folder:
 # $ cd ~ && git clone https://github.com/mxcl/homebrew.git && ln -s /usr/local/bin ~/homebrew/bin
 # PATH=${HOME}/Homebrew/bin:${PATH}
