@@ -135,6 +135,7 @@ npm install -g gulp
 npm install -g hubot
 npm install -g instant-markdown-d
 npm install -g spawn-sync
+npm install -g tldr
 npm install -g yo
 
 echo ''
