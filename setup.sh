@@ -133,6 +133,7 @@ npm install -g grunt-cli
 npm install -g grunt-serve
 npm install -g gulp
 npm install -g hubot
+npm install -g http-server
 npm install -g instant-markdown-d
 npm install -g spawn-sync
 npm install -g tldr
