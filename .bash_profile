@@ -25,6 +25,16 @@ rule() {
         printf "%$(tput cols)s\n"|tr " " "─"
 }
 
+# Open a url in Chrome at different screen widths
+# gist.github.com/zachleat/539c00c076b721d9f7fb
+function rwdurl() {
+  open -n -g -a "Google Chrome" --args --new-window --profile-directory=Profile\ 1 --app="data:text/html,<html><body><script>window.moveTo(0,0);window.resizeTo(320,1395);window.location='$1';</script></body></html>"
+  open -n -g -a "Google Chrome" --args --new-window --profile-directory=Profile\ 1 --app="data:text/html,<html><body><script>window.moveTo(330,0);window.resizeTo(480,1395);window.location='$1';</script></body></html>"
+  open -n -g -a "Google Chrome" --args --new-window --profile-directory=Profile\ 1 --app="data:text/html,<html><body><script>window.moveTo(815,0);window.resizeTo(640,1395);window.location='$1';</script></body></html>"
+  open -n -g -a "Google Chrome" --args --new-window --profile-directory=Profile\ 1 --app="data:text/html,<html><body><script>window.moveTo(1460,0);window.resizeTo(800,1395);window.location='$1';</script></body></html>"
+  open -n -g -a "Google Chrome" --args --new-window --profile-directory=Profile\ 1 --app="data:text/html,<html><body><script>window.moveTo(2265,0);window.resizeTo(1024,1395);window.location='$1';</script></body></html>"
+}
+
 
 # GENERAL ----------------------------------------------------------------------
 
