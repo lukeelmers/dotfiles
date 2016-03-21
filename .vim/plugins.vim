@@ -17,7 +17,7 @@ call plug#begin('~/.vim/bundle')
 
 Plug 'mhartington/oceanic-next'                                                     " theme
 Plug 'mhinz/vim-startify'                                                           " vim startup screen
-Plug 'kien/ctrlp.vim'                                                               " fuzzy file searching
+Plug 'ctrlpvim/ctrlp.vim'                                                           " fuzzy file searching
 Plug 'rking/ag.vim'                                                                 " faster grepping
 Plug 'bling/vim-airline'                                                            " pretty status bar
 Plug 'scrooloose/nerdtree'                                                          " sidebar navigation
@@ -46,7 +46,7 @@ Plug 'suan/vim-instant-markdown', { 'do': 'npm -g install instant-markdown-d' } 
 Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }                                " js code completion
 Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer', 'on': [] } " code completion
 " Install devicons last and download to local Fonts directory
-Plug 'ryanoasis/vim-devicons', { 'do': 'cd ~/Library/Fonts && curl -fLo Sauce\ Code\ Pro\ Plus\ Nerd\ File\ Types.ttf https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Sauce%20Code%20Pro%20Plus%20Nerd%20File%20Types.ttf' }
+Plug 'ryanoasis/vim-devicons', { 'do': 'cd ~/Library/Fonts && curl -fLo Sauce\ Code\ Pro\ Plus\ Nerd\ File\ Types.ttf https://github.com/ryanoasis/nerd-fonts/blob/0.6.1/patched-fonts/SourceCodePro/Sauce%20Code%20Pro%20Plus%20Nerd%20File%20Types.ttf' }
 
 call plug#end()
 
