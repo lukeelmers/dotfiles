@@ -89,13 +89,11 @@ createdb
 
 brew doctor
 
-# Required for neovim to work with python (needed for Tern and YCM plugins)
-# sudo pip2 install neovim
-
 # point neovim dotfiles to vim dotfiles
 echo "Creating nvim dotfiles based on vim dotfiles..."
-ln -s $dir/.vimrc ~/.nvimrc
-ln -s $dir/.vim ~/.nvim
+mkdir -p ${XDG_CONFIG_HOME:=$HOME/.config}
+ln -s ~/.vim $XDG_CONFIG_HOME/nvim
+ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
 
 # insanely beautiful diffs: https://goo.gl/NJZnPk
 git config --global core.pager "bash -lc 'diff-highlight | strip_diff_leading_symbols | less -r' -"
