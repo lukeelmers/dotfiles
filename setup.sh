@@ -119,6 +119,7 @@ rails -v
 echo ''
 echo 'Installing global npm modules...'
 echo ''
+npm install -g brunch
 npm install -g caniuse-cmd
 npm install -g generator-hubot
 npm install -g generator-mocha
