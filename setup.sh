@@ -54,7 +54,7 @@ git config --global user.name "${input_name}"
 echo "What is your email address?"
 read input_email
 git config --global user.email ${input_email}
-echo "What is your preferred editor? (eg. vim, nvim, subl -n -w)"
+echo "What is your preferred editor? (eg. vim, nvim, subl --wait, atom --wait)"
 read input_editor
 git config --global core.editor ${input_editor}
 
