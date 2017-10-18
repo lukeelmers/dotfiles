@@ -52,10 +52,20 @@ export NVM_DIR=~/.nvm
 # $ cd ~ && git clone https://github.com/mxcl/homebrew.git && ln -s /usr/local/bin ~/homebrew/bin
 # PATH=${HOME}/Homebrew/bin:${PATH}
 
+# Set GOPATH
+export GOPATH=$HOME/go
+PATH="$PATH:$GOROOT/bin:$GOPATH/bin"
+
 # Include /usr/local/sbin in PATH to prevent Homebrew warnings
 PATH="/usr/local/sbin:$PATH"
 
+# Add Visual Studio Code (code)
+PATH="$PATH:~/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+
 export PATH
+
+# Set vim as editor
+EDITOR=vim; export EDITOR
 
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob;
@@ -160,6 +170,9 @@ alias speedtest="speedtest-cli"
 # Processes
 alias ps="ps -ax"
 
+# Ports
+alias ports="lsof -nP | grep TCP | grep LISTEN"
+
 # View HTTP traffic
 alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
 alias httpdump="sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
@@ -207,3 +220,4 @@ alias mute="osascript -e 'set volume output muted true'"
 # Start elastic search manually instead of using launchctl or 'brew services start elasticsearch'
 alias elasticstart="elasticsearch --config=/usr/local/opt/elasticsearch/config/elasticsearch.yml"
 
+source ~/.airmapctl-auto-complete
