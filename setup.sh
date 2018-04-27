@@ -13,19 +13,16 @@
 #  3) Performs basic git configuration (name/email/editor preferences).
 #  4) Generates SSH keys if they don't exist yet.
 #  5) Installs Homebrew & everything included in Brewfile.
-#  6) Symlinks neovim dotfiles to vim dotfiles (nvim is installed in Brewfile).
-#  7) Installs Ruby (with rbenv) & Rails
-#  8) Sets up a MAMP-like local dev environment by running environment.sh.
+#  6) Installs Ruby (with rbenv) & Rails
 
 
 # settings
 dir=~/dotfiles                       # dotfiles directory
 olddir=~/dotfiles_backup             # old dotfiles backup directory
 # list of files/folders to symlink in home directory
-files=".bash_profile .bashrc .gitignore_global .psqlrc .shell_prompt.sh .tmux.conf .vim .vimrc"
+files=".bash_profile .bashrc .gitignore_global .hyper.js .psqlrc .shell_prompt.sh .tmux.conf .vim .vimrc .zshrc"
 # create directory in order to install nvm via homebrew
 mkdir ~/.nvm
-
 
 # create backup directory
 echo -n "Creating $olddir to backup existing dotfiles in ~ ..."
@@ -89,16 +86,6 @@ createdb
 
 brew doctor
 
-# point neovim dotfiles to vim dotfiles
-echo "Creating nvim dotfiles based on vim dotfiles..."
-mkdir -p ${XDG_CONFIG_HOME:=$HOME/.config}
-ln -s ~/.vim $XDG_CONFIG_HOME/nvim
-ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
-
-# insanely beautiful diffs: https://goo.gl/NJZnPk
-git config --global core.pager "bash -lc 'diff-highlight | strip_diff_leading_symbols | less -r' -"
-ln -sf "$(brew --prefix)/share/git-core/contrib/diff-highlight/diff-highlight" /usr/local/bin/diff-highlight
-
 # Install Xcode command line tools (required for Rails)
 xcode-select --install
 
@@ -120,19 +107,10 @@ echo ''
 echo 'Installing global npm modules...'
 echo ''
 npm install -g brunch
+npm install -g bunyan
 npm install -g caniuse-cmd
-npm install -g generator-hubot
-npm install -g generator-mocha
-npm install -g generator-patternlab
-npm install -g generator-webapp
 npm install -g git-open
-npm install -g hubot
 npm install -g instant-markdown-d
-npm install -g spawn-sync
+npm install -g pino
 npm install -g tldr
-npm install -g yo
 
-echo ''
-echo 'Setting up local dev environment...'
-echo ''
-source $dir/environment.sh

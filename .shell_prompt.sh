@@ -1,207 +1,77 @@
-#
-# This shell prompt config file was created by promptline.vim & manually modified
-#
-function __promptline_host {
-  local only_if_ssh="0"
+# adapted from https://github.com/edouard-lopez/pure-bash
 
-  if [ ! $only_if_ssh -o -n "${SSH_CLIENT}" ]; then
-    if [[ -n ${ZSH_VERSION-} ]]; then print %m; elif [[ -n ${FISH_VERSION-} ]]; then hostname -s; else printf "%s" \\h; fi
-  fi
+# User color
+case $(id -u) in
+	0) user_color="$RED" ;;  # root
+	*) user_color="$GREEN" ;;
+esac
+
+# Symbols
+prompt_symbol="❯"
+prompt_clean_symbol=""
+prompt_dirty_symbol="*"
+prompt_venv_symbol="☁ "
+
+function prompt_command() {
+	# Local or SSH session?
+	local remote=
+	[ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] && remote=1
+
+	# Git branch name and work tree status (only when we are inside Git working tree)
+	local git_prompt=
+	if [[ "true" = "$(git rev-parse --is-inside-work-tree 2>/dev/null)" ]]; then
+		# Branch name
+		local branch="$(git symbolic-ref HEAD 2>/dev/null)"
+		branch="${branch##refs/heads/}"
+
+		# Working tree status (red when dirty)
+		local dirty=
+		# Modified files
+		git diff --no-ext-diff --quiet --exit-code --ignore-submodules 2>/dev/null || dirty=1
+		# Untracked files
+		[ -z "$dirty" ] && test -n "$(git status --porcelain)" && dirty=1
+
+		# Format Git info
+		if [ -n "$dirty" ]; then
+			git_prompt=" $RED$branch$prompt_dirty_symbol$NOCOLOR"
+		else
+			git_prompt=" $GREEN$branch$prompt_clean_symbol$NOCOLOR"
+		fi
+	fi
+
+	# Virtualenv
+	local venv_prompt=
+	if [ -n "$VIRTUAL_ENV" ]; then
+	    venv_prompt=" $BLUE$prompt_venv_symbol$(basename $VIRTUAL_ENV)$NOCOLOR"
+	fi
+
+	# Only show username if not default
+	local user_prompt=
+	[ "$USER" != "$local_username" ] && user_prompt="$user_color$USER$NOCOLOR"
+
+	# Show hostname inside SSH session
+	local host_prompt=
+	[ -n "$remote" ] && host_prompt="@$YELLOW$HOSTNAME$NOCOLOR"
+
+	# Show delimiter if user or host visible
+	local login_delimiter=
+	[ -n "$user_prompt" ] || [ -n "$host_prompt" ] && login_delimiter=":"
+
+	# Format prompt
+	first_line="$user_prompt$host_prompt$login_delimiter$WHITE\w$NOCOLOR$git_prompt$venv_prompt"
+	# Text (commands) inside \[...\] does not impact line length calculation which fixes stange bug when looking through the history
+	# $? is a status of last command, should be processed every time prompt prints
+	second_line="\`if [ \$? = 0 ]; then echo \[\$CYAN\]; else echo \[\$RED\]; fi\`\$prompt_symbol\[\$NOCOLOR\] "
+	PS1="\n$first_line\n$second_line"
+
+	# Multiline command
+	PS2="\[$CYAN\]$prompt_symbol\[$NOCOLOR\] "
+
+	# Terminal title
+	local title="$(basename "$PWD")"
+	[ -n "$remote" ] && title="$title \xE2\x80\x94 $HOSTNAME"
+	echo -ne "\033]0;$title"; echo -ne "\007"
 }
 
-function __promptline_last_exit_code {
-
-  [[ $last_exit_code -gt 0 ]] || return 1;
-
-  printf "%s" "$last_exit_code"
-}
-function __promptline_ps1 {
-  local slice_prefix slice_empty_prefix slice_joiner slice_suffix is_prompt_empty=1
-
-  # add newline before prompt
-  __promptline_wrapper "\n" "$slice_prefix" "$slice_suffix" && { slice_prefix=""; is_prompt_empty=1; }
-
-  # section "a" header
-  slice_prefix="${a_bg}${sep}${a_fg}${a_bg}${space}" slice_suffix="$space${a_sep_fg}" slice_joiner="${a_fg}${a_bg}${alt_sep}${space}" slice_empty_prefix="${a_fg}${a_bg}${space}"
-  [ $is_prompt_empty -eq 1 ] && slice_prefix="$slice_empty_prefix"
-  # section "a" slices
-  __promptline_wrapper "$(__promptline_host)" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
-
-  # section "b" header
-  slice_prefix="${b_bg}${sep}${b_fg}${b_bg}${space}" slice_suffix="$space${b_sep_fg}" slice_joiner="${b_fg}${b_bg}${alt_sep}${space}" slice_empty_prefix="${b_fg}${b_bg}${space}"
-  [ $is_prompt_empty -eq 1 ] && slice_prefix="$slice_empty_prefix"
-  # section "b" slices
-  __promptline_wrapper "☁  $USER" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
-
-  # section "c" header
-  slice_prefix="${c_bg}${sep}${c_fg}${c_bg}${space}" slice_suffix="$space${c_sep_fg}" slice_joiner="${c_fg}${c_bg}${alt_sep}${space}" slice_empty_prefix="${c_fg}${c_bg}${space}"
-  [ $is_prompt_empty -eq 1 ] && slice_prefix="$slice_empty_prefix"
-  # section "c" slices
-  __promptline_wrapper "$(__promptline_cwd)" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
-
-  # section "y" header
-  slice_prefix="${y_bg}${sep}${y_fg}${y_bg}${space}" slice_suffix="$space${y_sep_fg}" slice_joiner="${y_fg}${y_bg}${alt_sep}${space}" slice_empty_prefix="${y_fg}${y_bg}${space}"
-  [ $is_prompt_empty -eq 1 ] && slice_prefix="$slice_empty_prefix"
-  # section "y" slices
-  __promptline_wrapper "$(__promptline_vcs_branch)" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
-
-  # section "warn" header
-  slice_prefix="${warn_bg}${sep}${warn_fg}${warn_bg}${space}" slice_suffix="$space${warn_sep_fg}" slice_joiner="${warn_fg}${warn_bg}${alt_sep}${space}" slice_empty_prefix="${warn_fg}${warn_bg}${space}"
-  [ $is_prompt_empty -eq 1 ] && slice_prefix="$slice_empty_prefix"
-  # section "warn" slices
-  __promptline_wrapper "$(__promptline_last_exit_code)" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
-
-  # close sections
-  printf "%s" "${reset_bg}${sep}$reset$space"
-
-}
-function __promptline_vcs_branch {
-  local branch
-  local branch_symbol="⑂ "
-
-  # git
-  if hash git 2>/dev/null; then
-    if branch=$( { git symbolic-ref --quiet HEAD || git rev-parse --short HEAD; } 2>/dev/null ); then
-      branch=${branch##*/}
-      printf "%s" "${branch_symbol}${branch:-unknown}"
-      return
-    fi
-  fi
-  return 1
-}
-function __promptline_cwd {
-  local dir_limit="3"
-  local truncation="⋯"
-  local first_char
-  local part_count=0
-  local formatted_cwd=""
-  local dir_sep="  "
-  local tilde="~"
-
-  local cwd="${PWD/#$HOME/$tilde}"
-
-  # get first char of the path, i.e. tilde or slash
-  [[ -n ${ZSH_VERSION-} ]] && first_char=$cwd[1,1] || first_char=${cwd::1}
-
-  # remove leading tilde
-  cwd="${cwd#\~}"
-
-  while [[ "$cwd" == */* && "$cwd" != "/" ]]; do
-    # pop off last part of cwd
-    local part="${cwd##*/}"
-    cwd="${cwd%/*}"
-
-    formatted_cwd="$dir_sep$part$formatted_cwd"
-    part_count=$((part_count+1))
-
-    [[ $part_count -eq $dir_limit ]] && first_char="$truncation" && break
-  done
-
-  printf "%s" "$first_char$formatted_cwd"
-}
-function __promptline_left_prompt {
-  local slice_prefix slice_empty_prefix slice_joiner slice_suffix is_prompt_empty=1
-
-  # section "a" header
-  slice_prefix="${a_bg}${sep}${a_fg}${a_bg}${space}" slice_suffix="$space${a_sep_fg}" slice_joiner="${a_fg}${a_bg}${alt_sep}${space}" slice_empty_prefix="${a_fg}${a_bg}${space}"
-  [ $is_prompt_empty -eq 1 ] && slice_prefix="$slice_empty_prefix"
-  # section "a" slices
-  __promptline_wrapper "$(__promptline_host)" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
-
-  # section "b" header
-  slice_prefix="${b_bg}${sep}${b_fg}${b_bg}${space}" slice_suffix="$space${b_sep_fg}" slice_joiner="${b_fg}${b_bg}${alt_sep}${space}" slice_empty_prefix="${b_fg}${b_bg}${space}"
-  [ $is_prompt_empty -eq 1 ] && slice_prefix="$slice_empty_prefix"
-  # section "b" slices
-  __promptline_wrapper "$USER" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
-
-  # section "c" header
-  slice_prefix="${c_bg}${sep}${c_fg}${c_bg}${space}" slice_suffix="$space${c_sep_fg}" slice_joiner="${c_fg}${c_bg}${alt_sep}${space}" slice_empty_prefix="${c_fg}${c_bg}${space}"
-  [ $is_prompt_empty -eq 1 ] && slice_prefix="$slice_empty_prefix"
-  # section "c" slices
-  __promptline_wrapper "$(__promptline_cwd)" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; is_prompt_empty=0; }
-
-  # close sections
-  printf "%s" "${reset_bg}${sep}$reset$space"
-}
-function __promptline_wrapper {
-  # wrap the text in $1 with $2 and $3, only if $1 is not empty
-  # $2 and $3 typically contain non-content-text, like color escape codes and separators
-
-  [[ -n "$1" ]] || return 1
-  printf "%s" "${2}${1}${3}"
-}
-function __promptline_right_prompt {
-  local slice_prefix slice_empty_prefix slice_joiner slice_suffix
-
-  # section "warn" header
-  slice_prefix="${warn_sep_fg}${rsep}${warn_fg}${warn_bg}${space}" slice_suffix="$space${warn_sep_fg}" slice_joiner="${warn_fg}${warn_bg}${alt_rsep}${space}" slice_empty_prefix=""
-  # section "warn" slices
-  __promptline_wrapper "$(__promptline_last_exit_code)" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; }
-
-  # section "y" header
-  slice_prefix="${y_sep_fg}${rsep}${y_fg}${y_bg}${space}" slice_suffix="$space${y_sep_fg}" slice_joiner="${y_fg}${y_bg}${alt_rsep}${space}" slice_empty_prefix=""
-  # section "y" slices
-  __promptline_wrapper "$(__promptline_vcs_branch)" "$slice_prefix" "$slice_suffix" && { slice_prefix="$slice_joiner"; }
-
-  # close sections
-  printf "%s" "$reset"
-}
-function __promptline {
-  local last_exit_code="${PROMPTLINE_LAST_EXIT_CODE:-$?}"
-
-  local esc=$'[' end_esc=m
-  if [[ -n ${ZSH_VERSION-} ]]; then
-    local noprint='%{' end_noprint='%}'
-  elif [[ -n ${FISH_VERSION-} ]]; then
-    local noprint='' end_noprint=''
-  else
-    local noprint='\[' end_noprint='\]'
-  fi
-  local wrap="$noprint$esc" end_wrap="$end_esc$end_noprint"
-  local space=" "
-  local sep=""
-  local rsep=""
-  local alt_sep=""
-  local alt_rsep=""
-  local reset="${wrap}0${end_wrap}"
-  local reset_bg="${wrap}49${end_wrap}"
-  local a_fg="${wrap}38;5;15${end_wrap}"
-  local a_bg="${wrap}48;5;239${end_wrap}"
-  local a_sep_fg="${wrap}38;5;239${end_wrap}"
-  local b_fg="${wrap}38;5;15${end_wrap}"
-  local b_bg="${wrap}48;5;68${end_wrap}"
-  local b_sep_fg="${wrap}38;5;68${end_wrap}"
-  local c_fg="${wrap}38;5;15${end_wrap}"
-  local c_bg="${wrap}48;5;242${end_wrap}"
-  local c_sep_fg="${wrap}38;5;242${end_wrap}"
-  local warn_fg="${wrap}38;5;232${end_wrap}"
-  local warn_bg="${wrap}48;5;166${end_wrap}"
-  local warn_sep_fg="${wrap}38;5;166${end_wrap}"
-  local y_fg="${wrap}38;5;232${end_wrap}"
-  local y_bg="${wrap}48;5;003${end_wrap}"
-  local y_sep_fg="${wrap}38;5;003${end_wrap}"
-  if [[ -n ${ZSH_VERSION-} ]]; then
-    PROMPT="$(__promptline_left_prompt)"
-    RPROMPT="$(__promptline_right_prompt)"
-  elif [[ -n ${FISH_VERSION-} ]]; then
-    if [[ -n "$1" ]]; then
-      [[ "$1" = "left" ]] && __promptline_left_prompt || __promptline_right_prompt
-    else
-      __promptline_ps1
-    fi
-  else
-    PS1="$(__promptline_ps1)"
-  fi
-}
-
-if [[ -n ${ZSH_VERSION-} ]]; then
-  if [[ ! ${precmd_functions[(r)__promptline]} == __promptline ]]; then
-    precmd_functions+=(__promptline)
-  fi
-elif [[ -n ${FISH_VERSION-} ]]; then
-  __promptline "$1"
-else
-  if [[ ! "$PROMPT_COMMAND" == *__promptline* ]]; then
-    PROMPT_COMMAND='__promptline;'$'\n'"$PROMPT_COMMAND"
-  fi
-fi
+# Show awesome prompt only if Git is istalled
+command -v git >/dev/null 2>&1 && PROMPT_COMMAND=prompt_command

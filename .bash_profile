@@ -25,19 +25,8 @@ rule() {
         printf "%$(tput cols)s\n"|tr " " "─"
 }
 
-# Open a url in Chrome at different screen widths
-# gist.github.com/zachleat/539c00c076b721d9f7fb
-function rwdurl() {
-  open -n -g -a "Google Chrome" --args --new-window --profile-directory=Profile\ 1 --app="data:text/html,<html><body><script>window.moveTo(0,0);window.resizeTo(320,1395);window.location='$1';</script></body></html>"
-  open -n -g -a "Google Chrome" --args --new-window --profile-directory=Profile\ 1 --app="data:text/html,<html><body><script>window.moveTo(330,0);window.resizeTo(480,1395);window.location='$1';</script></body></html>"
-  open -n -g -a "Google Chrome" --args --new-window --profile-directory=Profile\ 1 --app="data:text/html,<html><body><script>window.moveTo(815,0);window.resizeTo(640,1395);window.location='$1';</script></body></html>"
-  open -n -g -a "Google Chrome" --args --new-window --profile-directory=Profile\ 1 --app="data:text/html,<html><body><script>window.moveTo(1460,0);window.resizeTo(800,1395);window.location='$1';</script></body></html>"
-  open -n -g -a "Google Chrome" --args --new-window --profile-directory=Profile\ 1 --app="data:text/html,<html><body><script>window.moveTo(2265,0);window.resizeTo(1024,1395);window.location='$1';</script></body></html>"
-}
-
 
 # GENERAL ----------------------------------------------------------------------
-
 # style command prompt
 source ~/.shell_prompt.sh
 
@@ -151,7 +140,6 @@ alias grep="grep --color=auto"
 # GIT --------------------------------------------------------------------------
 
 # git aliases
-alias g='git'
 alias gitundo='git reset --soft HEAD~1'
 alias glg='git log --date-order --all --graph --format="%C(green)%h%Creset %C(yellow)%an%Creset %C(blue bold)%ar%Creset %C(red bold)%d%Creset%s"'
 alias glg2='git log --date-order --all --graph --name-status --format="%C(green)%H%Creset %C(yellow)%an%Creset %C(blue bold)%ar%Creset %C(red bold)%d%Creset%s"'
@@ -176,9 +164,6 @@ alias ports="lsof -nP | grep TCP | grep LISTEN"
 # View HTTP traffic
 alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
 alias httpdump="sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
-
-# Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
-alias update='sudo softwareupdate -i -a; brew update; brew upgrade --all; brew cleanup; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update'
 
 # Flush Directory Service cache
 alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
@@ -205,9 +190,6 @@ alias unzip="tar -xzvf"
 # Get screengrab of any webpage: paulhammond.org/webkit2png
 alias screengrab="webkit2png --fullsize --width=1800 -D ~/Desktop"
 
-# Merge PDF files (usage: `mergepdf -o output.pdf input{1,2,3}.pdf`)
-alias mergepdf="/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Resources/join.py"
-
 # Get week number
 alias week="date +%V"
 
@@ -217,7 +199,3 @@ alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date
 # Mute volume
 alias mute="osascript -e 'set volume output muted true'"
 
-# Start elastic search manually instead of using launchctl or 'brew services start elasticsearch'
-alias elasticstart="elasticsearch --config=/usr/local/opt/elasticsearch/config/elasticsearch.yml"
-
-source ~/.airmapctl-auto-complete
