@@ -15,11 +15,12 @@ endif
 
 call plug#begin('~/.vim/bundle')
 
-Plug 'mhartington/oceanic-next'                                                     " theme
+Plug 'connorholyday/vim-snazzy'                                                     " theme
 Plug 'mhinz/vim-startify'                                                           " vim startup screen
 Plug 'ctrlpvim/ctrlp.vim'                                                           " fuzzy file searching
 Plug 'rking/ag.vim'                                                                 " faster grepping
 Plug 'bling/vim-airline'                                                            " pretty status bar
+Plug 'vim-airline/vim-airline-themes'                                               " status bar theme
 Plug 'scrooloose/nerdtree'                                                          " sidebar navigation
 Plug 'Xuyuanp/nerdtree-git-plugin'                                                  " git diff support for nerdtree
 Plug 'tpope/vim-fugitive'                                                           " git goodness
@@ -43,7 +44,6 @@ Plug 'mxw/vim-jsx'                                                              
 Plug 'kchmck/vim-coffee-script'                                                     " coffeescript syntax highlighting
 Plug 'othree/html5.vim'                                                             " html5 syntax
 Plug 'suan/vim-instant-markdown', { 'do': 'npm -g install instant-markdown-d' }     " instant previews of markdown files
-Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }                                " js code completion
 Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer', 'on': [] } " code completion
 " Install devicons last and download to local Fonts directory
 Plug 'ryanoasis/vim-devicons', { 'do': 'cd ~/Library/Fonts && curl -fLo Sauce\ Code\ Pro\ Plus\ Nerd\ File\ Types.ttf https://github.com/ryanoasis/nerd-fonts/blob/0.6.1/patched-fonts/SourceCodePro/Sauce%20Code%20Pro%20Plus%20Nerd%20File%20Types.ttf' }
@@ -57,7 +57,7 @@ call plug#end()
 
 " Theme & Font {{{
 syntax enable
-colorscheme OceanicNext
+colorscheme snazzy
 set background=dark
 set colorcolumn=80,120
 if has('nvim')
@@ -122,7 +122,7 @@ let g:airline_powerline_fonts=1
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
-let g:airline_theme="oceanicnext"
+let g:airline_theme="minimalist"
 set laststatus=2                                     " Show airline even if there isn't a split
 let g:airline#extensions#tabline#enabled = 1         " Enable the tabline
 let g:airline#extensions#tabline#fnamemod = ':t'     " Show just the filename of buffers in the tab line

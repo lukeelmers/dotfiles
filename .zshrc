@@ -42,6 +42,9 @@ export PATH
 # Set vim as editor
 EDITOR=vim; export EDITOR
 
+# Configure docker
+eval "$(docker-machine env default)"
+
 # Enable aliases to be sudo'ed
 alias sudo="sudo "
 
@@ -145,7 +148,7 @@ alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v exten
 alias lock='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend'
 
 # refresh shell
-alias reload="exec $SHELL -l"
+alias reload="source ~/.zshrc"
 
 # tar/untar files
 alias zip="tar -czvf"
@@ -180,8 +183,8 @@ zplug "lib/completion", from:oh-my-zsh
 # Syntax highlighting for commands, load last
 zplug "zsh-users/zsh-syntax-highlighting", from:github, defer:3
 # Theme!
-# zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
-zplug "dfurnes/purer", use:pure.zsh, from:github, as:theme
+zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+# zplug "dfurnes/purer", use:pure.zsh, from:github, as:theme
 
 zplug load
 
