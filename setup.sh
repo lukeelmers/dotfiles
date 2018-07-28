@@ -13,7 +13,6 @@
 #  3) Performs basic git configuration (name/email/editor preferences).
 #  4) Generates SSH keys if they don't exist yet.
 #  5) Installs Homebrew & everything included in Brewfile.
-#  6) Installs Ruby (with rbenv) & Rails
 
 
 # settings
@@ -90,27 +89,7 @@ brew doctor
 xcode-select --install
 
 echo ''
-echo 'Installing Ruby...'
-echo ''
-rbenv install 2.2.3
-rbenv global 2.2.3
-ruby -v
-
-echo ''
-echo 'Installing Rails (requires sudo)...'
-echo ''
-sudo gem install rails -v 4.2.3
-rbenv rehash
-rails -v
-
-echo ''
 echo 'Installing global npm modules...'
 echo ''
-npm install -g brunch
-npm install -g bunyan
-npm install -g caniuse-cmd
-npm install -g git-open
-npm install -g instant-markdown-d
-npm install -g pino
-npm install -g tldr
+npm install -g brunch bunyan caniuse-cmd git-open instant-markdown-d npm pino tldr yarn
 
