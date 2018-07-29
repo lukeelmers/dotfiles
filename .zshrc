@@ -25,7 +25,7 @@ setopt interactivecomments
 
 # initialize nvm
 export NVM_DIR=~/.nvm
-. $(brew --prefix nvm)/nvm.sh
+source $(brew --prefix nvm)/nvm.sh
 
 # Set GOPATH
 export GOPATH=$HOME/go
@@ -42,8 +42,7 @@ export PATH
 # Set vim as editor
 EDITOR=vim; export EDITOR
 
-# Configure docker
-eval "$(docker-machine env default)"
+export GPG_TTY=$(tty)
 
 # Enable aliases to be sudo'ed
 alias sudo="sudo "
