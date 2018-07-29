@@ -60,6 +60,9 @@ module.exports = {
     // default: `true` (without backticks and without quotes) on Windows and Linux, ignored on macOS
     showWindowControls: '',
 
+    // default size of window (in px)
+    windowSize: [1100, 600],
+
     // custom padding (CSS format, i.e.: `top right bottom left`)
     padding: '12px 14px',
 
@@ -123,6 +126,10 @@ module.exports = {
     // bellSoundURL: 'http://example.com/bell.mp3',
 
     // for advanced config flags please refer to https://hyper.is/#cfg
+
+    hyperTabs: {
+      trafficButtons: true,
+    }
   },
 
   // a list of plugins to fetch and install from npm
@@ -132,9 +139,10 @@ module.exports = {
   //   `@company/project`
   //   `project#1.0.1`
   plugins: [
-    // 'hyperterm-oceanic-next',
+    // 'hyper-white-theme',
     'hyper-snazzy',
-    // 'hyper-white-theme'
+    'hyperterm-tab-numbers',
+    'hyper-tabs-enhanced',
   ],
 
   // in development, you can create a directory under
