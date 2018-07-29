@@ -83,6 +83,10 @@ brew tap homebrew/services
 brew services restart postgresql
 createdb
 
+# Set zsh as default shell (requires sudo)
+echo "$(which zsh)" | sudo tee -a /etc/shells
+chsh -s $(which zsh)
+
 brew doctor
 
 # Install Xcode command line tools (required for Rails)
