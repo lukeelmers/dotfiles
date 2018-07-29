@@ -25,7 +25,7 @@ setopt interactivecomments
 
 # initialize nvm
 export NVM_DIR=~/.nvm
-. $(brew --prefix nvm)/nvm.sh
+source $(brew --prefix nvm)/nvm.sh
 
 # Set GOPATH
 export GOPATH=$HOME/go
@@ -41,6 +41,8 @@ export PATH
 
 # Set vim as editor
 EDITOR=vim; export EDITOR
+
+export GPG_TTY=$(tty)
 
 # Enable aliases to be sudo'ed
 alias sudo="sudo "
@@ -145,7 +147,7 @@ alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v exten
 alias lock='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend'
 
 # refresh shell
-alias reload="exec $SHELL -l"
+alias reload="source ~/.zshrc"
 
 # tar/untar files
 alias zip="tar -czvf"

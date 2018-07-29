@@ -35,7 +35,7 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # initialize nvm
 export NVM_DIR=~/.nvm
-. $(brew --prefix nvm)/nvm.sh
+sh $(brew --prefix nvm)/nvm.sh
 
 # Set GOPATH
 export GOPATH=$HOME/go
@@ -51,6 +51,8 @@ export PATH
 
 # Set vim as editor
 EDITOR=vim; export EDITOR
+
+export GPG_TTY=$(tty)
 
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob;
