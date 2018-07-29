@@ -15,11 +15,10 @@ endif
 
 call plug#begin('~/.vim/bundle')
 
-Plug 'mhartington/oceanic-next'                                                     " theme
+Plug 'connorholyday/vim-snazzy'                                                     " theme
 Plug 'mhinz/vim-startify'                                                           " vim startup screen
 Plug 'ctrlpvim/ctrlp.vim'                                                           " fuzzy file searching
 Plug 'rking/ag.vim'                                                                 " faster grepping
-Plug 'bling/vim-airline'                                                            " pretty status bar
 Plug 'scrooloose/nerdtree'                                                          " sidebar navigation
 Plug 'Xuyuanp/nerdtree-git-plugin'                                                  " git diff support for nerdtree
 Plug 'tpope/vim-fugitive'                                                           " git goodness
@@ -40,13 +39,10 @@ Plug 'cakebaker/scss-syntax.vim'                                                
 Plug 'gorodinskiy/vim-coloresque'                                                   " highlight color names and hex codes
 Plug 'pangloss/vim-javascript'                                                      " js syntax highlighting
 Plug 'mxw/vim-jsx'                                                                  " react jsx highlighting
-Plug 'kchmck/vim-coffee-script'                                                     " coffeescript syntax highlighting
 Plug 'othree/html5.vim'                                                             " html5 syntax
 Plug 'suan/vim-instant-markdown', { 'do': 'npm -g install instant-markdown-d' }     " instant previews of markdown files
 Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }                                " js code completion
 Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer', 'on': [] } " code completion
-" Install devicons last and download to local Fonts directory
-Plug 'ryanoasis/vim-devicons', { 'do': 'cd ~/Library/Fonts && curl -fLo Sauce\ Code\ Pro\ Plus\ Nerd\ File\ Types.ttf https://github.com/ryanoasis/nerd-fonts/blob/0.6.1/patched-fonts/SourceCodePro/Sauce%20Code%20Pro%20Plus%20Nerd%20File%20Types.ttf' }
 
 call plug#end()
 
@@ -57,23 +53,16 @@ call plug#end()
 
 " Theme & Font {{{
 syntax enable
-colorscheme OceanicNext
+colorscheme snazzy
+let g:SnazzyTransparent = 1
 set background=dark
 set colorcolumn=80,120
-if has('nvim')
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-else
-  set t_Co=256
-endif
-" Set devicons guifont (must set in preferences if using non-gui terminal)
-if has('gui_running')
-  set guifont=Sauce\ Code\ Pro\ Plus\ Nerd\ File\ Types\ 16
-endif
+highlight ColorColumn ctermbg=8 guibg=lightgray
 " }}}
 
 " Syntax Highlighting {{{
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
-"  }}}
+" }}}
 
 " Smooth Scrolling {{{
 let g:SexyScroller_ScrollTime = 200
@@ -92,7 +81,6 @@ let g:multi_cursor_quit_key='<Esc>'     " default
 
 " Instant Markdown {{{
 let g:instant_markdown_slow = 1
-" let g:instant_markdown_autostart = 0
 " }}}
 
 " NERDTree {{{
@@ -114,22 +102,6 @@ if v:version >= 740
     autocmd InsertEnter * call plug#load('YouCompleteMe') | call youcompleteme#Enable() | autocmd! load_ycm
   augroup END
 endif
-" }}}
-
-" Airline {{{
-" Make sure powerline fonts are used
-let g:airline_powerline_fonts=1
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-let g:airline_theme="oceanicnext"
-set laststatus=2                                     " Show airline even if there isn't a split
-let g:airline#extensions#tabline#enabled = 1         " Enable the tabline
-let g:airline#extensions#tabline#fnamemod = ':t'     " Show just the filename of buffers in the tab line
-let g:airline#extensions#tabline#buffer_nr_show = 1  " Show buffer numbers
-let g:airline#extensions#branch#enabled = 1          " Enable Fugitive integration
-let g:airline_detect_modified=1
-let g:airline_detect_paste=1
 " }}}
 
 " CtrlP {{{
