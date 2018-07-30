@@ -45,7 +45,7 @@ PATH="$PATH:$GOROOT/bin:$GOPATH/bin"
 PATH="/usr/local/sbin:$PATH"
 
 # Add Visual Studio Code (code)
-PATH="$PATH:~/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 export PATH
 
