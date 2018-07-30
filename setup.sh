@@ -134,5 +134,5 @@ code --install-extension xdae.vscode-snazzy-theme
 echo ''
 echo 'Installing global npm modules...'
 echo ''
-npm install -g brunch bunyan caniuse-cmd git-open instant-markdown-d npm pino tldr yarn
+npm install -g brunch bunyan caniuse-cmd git-open instant-markdown-d ndb npm pino tldr yarn
 
