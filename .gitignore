@@ -1,3 +1,6 @@
 .DS_Store
 .vim/autoload
 .vim/bundle
+.vscode/extensions
+.vscode/workspaceStorage
+

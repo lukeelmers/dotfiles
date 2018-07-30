@@ -14,12 +14,24 @@
 #  4) Generates SSH keys if they don't exist yet.
 #  5) Installs Homebrew & everything included in Brewfile.
 
+set -e
 
 # settings
 dir=~/dotfiles                       # dotfiles directory
 olddir=~/dotfiles_backup             # old dotfiles backup directory
 # list of files/folders to symlink in home directory
-files=".bash_profile .bashrc .gitignore_global .hyper.js .psqlrc .shell_prompt.sh .tmux.conf .vim .vimrc .zshrc"
+files=".bash_profile .bashrc .gitignore_global .hyper.js .psqlrc .shell_prompt.sh .tmux.conf .vim .vimrc .vscode .zshrc"
+
+if ! type "git" > /dev/null; then
+  echo "ERROR: git must be installed before running."
+  exit 1
+fi
+
+if ! type "code" > /dev/null; then
+  echo "ERROR: vscode must be installed before running."
+  exit 1
+fi
+
 # create directory in order to install nvm via homebrew
 mkdir ~/.nvm
 
@@ -87,10 +99,37 @@ createdb
 echo "$(which zsh)" | sudo tee -a /etc/shells
 chsh -s $(which zsh)
 
+# Configure gpg signing with git
+git config --global url."ssh://git@github.com:".insteadOf "https://github.com/"
+git config --global commit.gpgsign true
+git config --global gpg.program gpg
+
 brew doctor
 
-# Install Xcode command line tools (required for Rails)
+# Install Xcode command line tools
 xcode-select --install
+
+# Symlink vscode dotfiles
+ln -s ~/.vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
+ln -s ~/.vscode/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
+ln -s ~/.vscode/snippets/ ~/Library/Application\ Support/Code/User/snippets
+
+# Install vscode extensions
+code --install-extension arthurwhite.white
+code --install-extension dbaeumer.vscode-eslint
+code --install-extension eamodio.gitlens
+code --install-extension eg2.tslint
+code --install-extension equinusocio.vsc-material-theme
+code --install-extension formulahendry.auto-rename-tag
+code --install-extension laurenttreguier.vscode-simple-icons
+code --install-extension mauve.terraform
+code --install-extension ms-python.python
+code --install-extension msjsdiag.debugger-for-chrome
+code --install-extension peterjausovec.vscode-docker
+code --install-extension redhat.vscode-yaml
+code --install-extension vscodevim.vim
+code --install-extension wayou.vscode-todo-highlight
+code --install-extension xdae.vscode-snazzy-theme
 
 echo ''
 echo 'Installing global npm modules...'
