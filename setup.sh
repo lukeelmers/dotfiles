@@ -121,7 +121,6 @@ code --install-extension eamodio.gitlens
 code --install-extension eg2.tslint
 code --install-extension equinusocio.vsc-material-theme
 code --install-extension formulahendry.auto-rename-tag
-code --install-extension laurenttreguier.vscode-simple-icons
 code --install-extension mauve.terraform
 code --install-extension ms-python.python
 code --install-extension msjsdiag.debugger-for-chrome

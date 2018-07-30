@@ -5,7 +5,7 @@
     "editor.fontFamily": "'Fira Code'",
     "editor.fontSize": 13,
     "editor.fontLigatures": true,
-    "workbench.iconTheme": "material-theme-icons",
+    "workbench.iconTheme": "eq-material-theme-icons-ocean",
     // "workbench.colorCustomizations":{
     //     "tab.activeBackground": "#343D46",
     //     "activityBar.background": "#343D46",
@@ -59,4 +59,6 @@
     },
     "gitlens.codeLens.authors.enabled": false,
     "gitlens.codeLens.recentChange.enabled": false,
+    "telemetry.enableCrashReporter": false,
+    "telemetry.enableTelemetry": false,
 }
