@@ -67,7 +67,7 @@ alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && k
 
 # shortcuts
 alias d="cd ~/Dropbox"
-alias dv="cd ~/Sites"
+alias dv="cd ~/Developer"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias h="history"
