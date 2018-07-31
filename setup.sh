@@ -35,6 +35,9 @@ fi
 # create directory in order to install nvm via homebrew
 mkdir ~/.nvm
 
+# create Developer directory
+mkdir ~/Developer
+
 # create backup directory
 echo -n "Creating $olddir to backup existing dotfiles in ~ ..."
 mkdir -p $olddir

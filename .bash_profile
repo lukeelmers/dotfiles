@@ -38,7 +38,7 @@ export NVM_DIR=~/.nvm
 sh $(brew --prefix nvm)/nvm.sh
 
 # Set GOPATH
-export GOPATH=$HOME/go
+export GOPATH=$HOME/Developer/go
 PATH="$PATH:$GOROOT/bin:$GOPATH/bin"
 
 # Include /usr/local/sbin in PATH to prevent Homebrew warnings
