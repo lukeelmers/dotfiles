@@ -149,10 +149,6 @@ alias lock='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resour
 # refresh shell
 alias reload="source ~/.zshrc"
 
-# tar/untar files
-alias zip="tar -czvf"
-alias unzip="tar -xzvf"
-
 # Get screengrab of any webpage: paulhammond.org/webkit2png
 alias screengrab="webkit2png --fullsize --width=1800 -D ~/Desktop"
 
@@ -164,6 +160,10 @@ alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date
 
 # Mute volume
 alias mute="osascript -e 'set volume output muted true'"
+
+# Install frequently used global npm dependencies.
+# Useful when changing versions of node via nvm.
+alias installnpmglobals="npm install -g brunch bunyan caniuse-cmd clinic git-open instant-markdown-d ndb npm pino tldr yarn"
 
 
 # PLUGINS ------------------------------------------------------------------------
@@ -194,3 +194,6 @@ if ! zplug check --verbose; then
     fi
 fi
 
+# This must be at the end of the file for SDKMAN to work!
+export SDKMAN_DIR="/Users/luke/.sdkman"
+[[ -s "/Users/luke/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/luke/.sdkman/bin/sdkman-init.sh"

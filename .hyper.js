@@ -63,6 +63,9 @@ module.exports = {
     // default size of window (in px)
     windowSize: [1100, 600],
 
+    // the number of rows to be persisted in terminal buffer for scrolling
+    scrollback: 5000,
+
     // custom padding (CSS format, i.e.: `top right bottom left`)
     padding: '12px 14px',
 
@@ -125,6 +128,9 @@ module.exports = {
     // URL to custom bell
     // bellSoundURL: 'http://example.com/bell.mp3',
 
+    // confirm before quitting, using `hyper-confirm` plugin
+    confirmQuit: true,
+
     // for advanced config flags please refer to https://hyper.is/#cfg
 
     hyperTabs: {
@@ -140,6 +146,7 @@ module.exports = {
   //   `project#1.0.1`
   plugins: [
     // 'hyper-white-theme',
+    'hyper-confirm',
     'hyper-snazzy',
     'hyperterm-tab-numbers',
     'hyper-tabs-enhanced',

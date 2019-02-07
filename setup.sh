@@ -138,3 +138,8 @@ echo 'Installing global npm modules...'
 echo ''
 npm install -g brunch bunyan caniuse-cmd clinic git-open instant-markdown-d ndb npm pino tldr yarn
 
+echo 'Installing SDKMAN & Java...'
+curl -s "https://get.sdkman.io" | bash
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+sdk install java
+
