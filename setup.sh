@@ -35,6 +35,9 @@ fi
 # create directory in order to install nvm via homebrew
 mkdir ~/.nvm
 
+# create directory for todo.sh addons
+mkdir ~/.todo.actions.d
+
 # create Developer directory
 mkdir ~/Developer
 
@@ -119,17 +122,35 @@ ln -s ~/.vscode/snippets/ ~/Library/Application\ Support/Code/User/snippets
 
 # Install vscode extensions
 code --install-extension arthurwhite.white
+code --install-extension asciidoctor.asciidoctor-vscode
+code --install-extension BazelBuild.vscode-bazel
+code --install-extension buster.ndjson-colorizer
+code --install-extension dawhite.mustache
 code --install-extension dbaeumer.vscode-eslint
 code --install-extension eamodio.gitlens
-code --install-extension eg2.tslint
-code --install-extension equinusocio.vsc-material-theme
+code --install-extension Equinusocio.vsc-community-material-theme
+code --install-extension Equinusocio.vsc-material-theme
+code --install-extension equinusocio.vsc-material-theme-icons
 code --install-extension formulahendry.auto-rename-tag
+code --install-extension futagozaryuu.pegjs-syntax
+code --install-extension GitHub.copilot
+code --install-extension GitHub.vscode-pull-request-github
+code --install-extension golang.go
+code --install-extension hashicorp.terraform
+code --install-extension jakearl.search-editor-apply-changes
 code --install-extension joaompinto.asciidoctor-vscode
-code --install-extension mauve.terraform
+code --install-extension mechatroner.rainbow-csv
+code --install-extension ms-azuretools.vscode-docker
 code --install-extension ms-python.python
+code --install-extension ms-python.vscode-pylance
+code --install-extension ms-toolsai.jupyter
+code --install-extension ms-toolsai.jupyter-keymap
+code --install-extension ms-toolsai.jupyter-renderers
 code --install-extension msjsdiag.debugger-for-chrome
-code --install-extension peterjausovec.vscode-docker
+code --install-extension redhat.vscode-commons
 code --install-extension redhat.vscode-yaml
+code --install-extension ryu1kn.partial-diff
+code --install-extension silvenon.mdx
 code --install-extension vscodevim.vim
 code --install-extension wayou.vscode-todo-highlight
 code --install-extension xdae.vscode-snazzy-theme
@@ -137,7 +158,7 @@ code --install-extension xdae.vscode-snazzy-theme
 echo ''
 echo 'Installing global npm modules...'
 echo ''
-npm install -g brunch bunyan caniuse-cmd clinic git-open instant-markdown-d ndb npm pino tldr yarn
+npm install -g brunch caniuse-cmd clinic git-open instant-markdown-d ndb npm tldr yarn
 
 echo 'Installing SDKMAN & Java...'
 curl -s "https://get.sdkman.io" | bash

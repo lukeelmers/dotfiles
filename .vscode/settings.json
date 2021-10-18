@@ -5,7 +5,6 @@
     "editor.fontFamily": "'Fira Code'",
     "editor.fontSize": 13,
     "editor.fontLigatures": true,
-    "workbench.iconTheme": "eq-material-theme-icons-ocean",
     // "workbench.colorCustomizations":{
     //     "tab.activeBackground": "#343D46",
     //     "activityBar.background": "#343D46",
@@ -13,6 +12,25 @@
     //     "sideBar.background": "#1B2B34",
     //     "statusBarItem.activeBackground": "#ff0000"
     // },
+    // "editor.codeActionsOnSave": {
+    //     "source.fixAll.tslint": true
+    // },
+
+    "eslint.options": {
+        "extensions": [".js", ".ts", ".jsx", ".tsx"]
+    },
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        {
+            "language": "typescript",
+            "autoFix": true
+        },
+        {
+            "language": "typescriptreact",
+            "autoFix": true
+        }
+    ],
     "vim.easymotion": true,
     "vim.incsearch": true,
     "vim.useSystemClipboard": true,
@@ -40,12 +58,9 @@
         }
     ],
     "vim.leader": "<space>",
-    "terminal.integrated.fontFamily": "Sauce Code Pro Plus Nerd File Types",
     "gitlens.advanced.messages": {
         "suppressShowKeyBindingsNotice": true
     },
-    "gitlens.historyExplorer.enabled": true,
-    "window.zoomLevel": 1,
     "yaml.format.enable": true,
     "[yaml]": {
         "editor.insertSpaces": true,
@@ -63,4 +78,25 @@
     "telemetry.enableTelemetry": false,
     "gitlens.views.fileHistory.enabled": true,
     "gitlens.views.lineHistory.enabled": true,
+    "go.formatTool": "goimports",
+    "editor.minimap.enabled": true,
+    "typescript.tsserver.maxTsServerMemory": 8192,
+    "javascript.updateImportsOnFileMove.enabled": "never",
+    "explorer.openEditors.visible": 0,
+    "terraform-ls.experimentalFeatures": {
+        "validateOnSave": true
+    },
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter.notebook.ipynb"
+    },
+    "githubPullRequests.defaultMergeMethod": "squash",
+    "githubPullRequests.telemetry.enabled": false,
+    "redhat.telemetry.enabled": false,
+    "editor.inlineSuggest.enabled": true,
+    "github.copilot.enable": {
+        "*": true,
+        "yaml": true,
+        "plaintext": false,
+        "markdown": false
+    },
 }

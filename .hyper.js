@@ -91,22 +91,7 @@ module.exports = {
       lightWhite: '#FFFFFF',
     },
 
-    // the shell to run when spawning a new session (i.e. /usr/local/bin/fish)
-    // if left empty, your system's login shell will be used by default
-    //
-    // Windows
-    // - Make sure to use a full path if the binary name doesn't work
-    // - Remove `--login` in shellArgs
-    //
-    // Bash on Windows
-    // - Example: `C:\\Windows\\System32\\bash.exe`
-    //
-    // PowerShell on Windows
-    // - Example: `C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe`
     shell: '/usr/local/bin/zsh',
-
-    // for setting shell arguments (i.e. for using interactive shellArgs: `['-i']`)
-    // by default `['--login']` will be used
     shellArgs: ['--login'],
 
     // for environment variables
@@ -115,27 +100,11 @@ module.exports = {
     // set to `false` for no bell
     bell: 'SOUND',
 
-    // if `true` (without backticks and without quotes), selected text will automatically be copied to the clipboard
-    copyOnSelect: false,
-
     // if `true` (without backticks and without quotes), hyper will be set as the default protocol client for SSH
     defaultSSHApp: true,
 
-    // if `true` (without backticks and without quotes), on right click selected text will be copied or pasted if no
-    // selection is present (`true` by default on Windows and disables the context menu feature)
-    // quickEdit: true,
-
-    // URL to custom bell
-    // bellSoundURL: 'http://example.com/bell.mp3',
-
     // confirm before quitting, using `hyper-confirm` plugin
-    confirmQuit: true,
-
-    // for advanced config flags please refer to https://hyper.is/#cfg
-
-    hyperTabs: {
-      trafficButtons: true,
-    }
+    // confirmQuit: false,
   },
 
   // a list of plugins to fetch and install from npm
@@ -145,11 +114,11 @@ module.exports = {
   //   `@company/project`
   //   `project#1.0.1`
   plugins: [
-    // 'hyper-white-theme',
     'hyper-confirm',
     'hyper-snazzy',
     'hyperterm-tab-numbers',
-    'hyper-tabs-enhanced',
+    // 'hyper-tabs-enhanced',
+    // 'hyper-dnd-tabs',
   ],
 
   // in development, you can create a directory under

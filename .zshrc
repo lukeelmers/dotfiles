@@ -44,6 +44,11 @@ EDITOR=vim; export EDITOR
 
 export GPG_TTY=$(tty)
 
+export NODE_OPTIONS=--max-old-space-size=4096
+
+# opting out of CI stat collection of the Kibana repo
+export CI_STATS_DISABLED=true
+
 # Enable aliases to be sudo'ed
 alias sudo="sudo "
 
@@ -66,7 +71,6 @@ alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && k
 # NAVIGATION -------------------------------------------------------------------
 
 # shortcuts
-alias d="cd ~/Dropbox"
 alias dv="cd ~/Developer"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
@@ -112,6 +116,10 @@ alias glg2='git log --date-order --all --graph --name-status --format="%C(green)
 
 
 # UTILITIES --------------------------------------------------------------------
+
+# todo.txt
+export TODOTXT_DEFAULT_ACTION=ls
+alias t="todo.sh -t"
 
 # Check IP
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
@@ -165,6 +173,8 @@ alias mute="osascript -e 'set volume output muted true'"
 # Useful when changing versions of node via nvm.
 alias installnpmglobals="npm install -g brunch bunyan caniuse-cmd clinic git-open instant-markdown-d ndb npm pino tldr yarn"
 
+# Bump Node version to latest specified in `.node-version`
+alias nodeup='nvm install "$(cat .node-version)" --reinstall-packages-from="$(node --version)" && nvm alias default "$(cat .node-version)"'
 
 # PLUGINS ------------------------------------------------------------------------
 

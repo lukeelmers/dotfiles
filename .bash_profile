@@ -54,6 +54,11 @@ EDITOR=vim; export EDITOR
 
 export GPG_TTY=$(tty)
 
+export NODE_OPTIONS=--max-old-space-size=4096
+
+# opting out of CI stat collection of the Kibana repo
+export CI_STATS_DISABLED=true
+
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob;
 
@@ -145,6 +150,10 @@ alias glg2='git log --date-order --all --graph --name-status --format="%C(green)
 
 # UTILITIES --------------------------------------------------------------------
 
+# todo.txt
+export TODOTXT_DEFAULT_ACTION=ls
+alias t="todo.sh -t"
+
 # Check IP
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en0"
@@ -172,7 +181,6 @@ alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
 # Kill all the tabs in Chrome to free up memory: commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
 alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
 
-
 # TOOLS ------------------------------------------------------------------------
 
 # Lock computer
@@ -196,6 +204,13 @@ alias mute="osascript -e 'set volume output muted true'"
 # Install frequently used global npm dependencies.
 # Useful when changing versions of node via nvm.
 alias installnpmglobals="npm install -g brunch bunyan caniuse-cmd clinic git-open instant-markdown-d ndb npm pino tldr yarn"
+
+# Install frequently used global npm dependencies.
+# Useful when changing versions of node via nvm.
+alias installnpmglobals="npm install -g brunch bunyan caniuse-cmd clinic git-open instant-markdown-d ndb npm pino tldr yarn"
+
+# Bump Node version to latest specified in `.node-version`
+alias nodeup='nvm install "$(cat .node-version)" --reinstall-packages-from="$(node --version)" && nvm alias default "$(cat .node-version)"'
 
 # This must be at the end of the file for SDKMAN to work!
 export SDKMAN_DIR="/Users/luke/.sdkman"
