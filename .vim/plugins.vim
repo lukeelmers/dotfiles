@@ -15,6 +15,8 @@ endif
 
 call plug#begin('~/.vim/bundle')
 
+Plug 'pechorin/any-jump.vim'                                                        " jump to references
+Plug 'sheerun/vim-polyglot'                                                         " all the languages
 Plug 'connorholyday/vim-snazzy'                                                     " theme
 Plug 'mhinz/vim-startify'                                                           " vim startup screen
 Plug 'ctrlpvim/ctrlp.vim'                                                           " fuzzy file searching
@@ -29,19 +31,11 @@ Plug 'terryma/vim-multiple-cursors'                                             
 Plug 'terryma/vim-expand-region'                                                    " expand selection in visual mode with +/-
 Plug 'tpope/vim-commentary'                                                         " comment out lines with gc, gcc, gcap
 Plug 'tpope/vim-surround'                                                           " use s to select surrounding tags or brackets
-Plug 'tpope/vim-sleuth'                                                             " autoconfigure indentation settings
 Plug 'godlygeek/tabular'                                                            " run :Tabularize /{,|=|'|etc} to autoalign text
 Plug 'Raimondi/delimitMate'                                                         " automatically add closing brackets
 Plug 'joeytwiddle/sexy_scroller.vim'                                                " smooth scrolling
-Plug 'tpope/vim-rails'                                                              " rails support
-Plug 'tpope/vim-endwise'                                                            " automatically add 'end' in ruby
-Plug 'cakebaker/scss-syntax.vim'                                                    " scss support (requires JulesWang/css.vim)
 Plug 'gorodinskiy/vim-coloresque'                                                   " highlight color names and hex codes
-Plug 'pangloss/vim-javascript'                                                      " js syntax highlighting
-Plug 'mxw/vim-jsx'                                                                  " react jsx highlighting
-Plug 'othree/html5.vim'                                                             " html5 syntax
 Plug 'suan/vim-instant-markdown', { 'do': 'npm -g install instant-markdown-d' }     " instant previews of markdown files
-Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer', 'on': [] } " code completion
 
 call plug#end()
 
