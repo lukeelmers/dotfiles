@@ -87,16 +87,6 @@ let NERDTreeWinSize = 40
 let NERDTreeChDirMode = 2
 " }}}
 
-" YouCompleteMe {{{
-" load first time insert mode is entered
-if v:version >= 740
-  augroup load_ycm
-    autocmd!
-    autocmd InsertEnter * call plug#load('YouCompleteMe') | call youcompleteme#Enable() | autocmd! load_ycm
-  augroup END
-endif
-" }}}
-
 " CtrlP {{{
 " Type <Space>o to open a new file
 nnoremap <Leader>o :CtrlP<CR>
