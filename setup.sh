@@ -20,7 +20,7 @@ set -e
 dir=~/dotfiles                       # dotfiles directory
 olddir=~/dotfiles_backup             # old dotfiles backup directory
 # list of files/folders to symlink in home directory
-files=".bash_profile .bashrc .gitignore_global .hyper.js .psqlrc .shell_prompt.sh .tmux.conf .vim .vimrc .zshrc"
+files=".bash_profile .bashrc .gitignore_global .psqlrc .shell_prompt.sh .tmux.conf .vim .vimrc .zshrc"
 
 if ! type "git" > /dev/null; then
   echo "ERROR: git must be installed before running."
@@ -45,10 +45,12 @@ cd $dir
 # move any existing dotfiles in ~ to backup directory, then create symlinks from ~ to any files in $dir that are listed above
 for file in $files; do
     echo "Moving $file from ~ to $olddir"
-    mv ~/$file ~/dotfiles_old/
+    mv ~/$file $olddir
     echo "Creating symlink to $file in home directory."
     ln -s $dir/$file ~/$file
 done
+# symlink for hyper config
+ln -s $dir/hyper-config.json ~/Library/Application\ Support/Hyper/config.json
 echo "Symlinks created."
 
 echo ""
@@ -88,13 +90,6 @@ echo 'Installing Homebrew...'
 cd $dir
 brew tap homebrew/bundle
 brew bundle
-
-# Workaround for Homebrew Postgres issue documented here: stackoverflow.com/a/27708774
-rm -r /usr/local/var/postgres
-initdb -D /usr/local/var/postgres/
-brew tap homebrew/services
-brew services restart postgresql
-createdb
 
 # Set zsh as default shell (requires sudo)
 echo "$(which zsh)" | sudo tee -a /etc/shells
