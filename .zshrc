@@ -21,7 +21,7 @@ setopt extendedhistory
 setopt interactivecomments
 
 # initialize rbenv
-# if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # initialize nvm
 export NVM_DIR=~/.nvm
@@ -46,8 +46,9 @@ export GPG_TTY=$(tty)
 
 export NODE_OPTIONS=--max-old-space-size=4096
 
-# opting out of CI stat collection of the Kibana repo
+# Kibana stuff
 export CI_STATS_DISABLED=true
+export VAULT_ADDR=https://secrets.elastic.co:8200
 
 # Enable aliases to be sudo'ed
 alias sudo="sudo "
@@ -207,3 +208,4 @@ fi
 # This must be at the end of the file for SDKMAN to work!
 export SDKMAN_DIR="/Users/luke/.sdkman"
 [[ -s "/Users/luke/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/luke/.sdkman/bin/sdkman-init.sh"
+

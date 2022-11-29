@@ -56,8 +56,9 @@ export GPG_TTY=$(tty)
 
 export NODE_OPTIONS=--max-old-space-size=4096
 
-# opting out of CI stat collection of the Kibana repo
+# Kibana stuff
 export CI_STATS_DISABLED=true
+export VAULT_ADDR=https://secrets.elastic.co:8200
 
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob;
@@ -215,3 +216,4 @@ alias nodeup='nvm install "$(cat .node-version)" --reinstall-packages-from="$(no
 # This must be at the end of the file for SDKMAN to work!
 export SDKMAN_DIR="/Users/luke/.sdkman"
 [[ -s "/Users/luke/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/luke/.sdkman/bin/sdkman-init.sh"
+
