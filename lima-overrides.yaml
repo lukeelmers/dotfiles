@@ -1,0 +1,72 @@
+# Arch: "default", "x86_64", "aarch64".
+# 🟢 Builtin default: "default" (corresponds to the host architecture)
+# arch: null
+
+# CPUs: if you see performance issues, try limiting cpus to 1.
+# 🟢 Builtin default: 4
+# cpus: null
+
+# Memory size
+# 🟢 Builtin default: "4GiB"
+# memory: null
+
+# Disk size
+# 🟢 Builtin default: "100GiB"
+# disk: null
+
+# Expose host directories to the guest, the mount point might be accessible from all UIDs in the guest
+# 🟢 Builtin default: null (Mount nothing)
+# 🔵 This file: Mount the home as read-only, /tmp/lima as writable
+
+# Provisioning scripts need to be idempotent because they might be called
+# multiple times, e.g. when the host VM is being restarted.
+# 🟢 Builtin default: null
+provision:
+# `system` is executed with the root privilege
+- mode: system
+  script: |
+    #!/bin/bash
+    sysctl -w vm.max_map_count=262144
+# # `user` is executed without the root privilege
+# - mode: user
+#   script: |
+#     #!/bin/bash
+#     set -eux -o pipefail
+#     cat <<EOF > ~/.vimrc
+#     set number
+#     EOF
+
+# Probe scripts to check readiness.
+# 🟢 Builtin default: null
+# probes:
+# # Only `readiness` probes are supported right now.
+# - mode: readiness
+#   description: vim to be installed
+#   script: |
+#      #!/bin/bash
+#      set -eux -o pipefail
+#      if ! timeout 30s bash -c "until command -v vim; do sleep 3; done"; then
+#        echo >&2 "vim is not installed yet"
+#        exit 1
+#      fi
+#   hint: |
+#     vim was not installed in the guest. Make sure the package system is working correctly.
+#     Also see "/var/log/cloud-init-output.log" in the guest.
+
+# Message. Information to be shown to the user, given as a Go template for the instance.
+# The same template variables as for listing instances can be used, for example {{.Dir}}.
+# You can view the complete list of variables using `limactl list --list-fields` command.
+# It also includes {{.HostOS}} and {{.HostArch}} vars, for the runtime GOOS and GOARCH.
+# 🟢 Builtin default: null
+# message: |
+#   This will be shown to the user.
+
+# Extra environment variables that will be loaded into the VM at start up.
+# These variables are consumed by internal init scripts, and also added
+# to /etc/environment.
+# If you set any of "ftp_proxy", "http_proxy", "https_proxy", or "no_proxy", then
+# Lima will automatically set an uppercase variant to the same value as well.
+# 🟢 Builtin default: null
+# env:
+#   KEY: value
+

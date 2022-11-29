@@ -49,8 +49,10 @@ for file in $files; do
     echo "Creating symlink to $file in home directory."
     ln -s $dir/$file ~/$file
 done
-# symlink for hyper config
+# specific files to symlink
 ln -s $dir/hyper-config.json ~/Library/Application\ Support/Hyper/config.json
+ln -s $dir/lima-overrides.yaml ~/.lima/_config/override.yaml
+ln -s $dir/nvm-default-packages ~/.nvm/default-packages
 echo "Symlinks created."
 
 echo ""
