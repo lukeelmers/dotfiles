@@ -41,6 +41,9 @@ sh $(brew --prefix nvm)/nvm.sh
 export GOPATH=$HOME/Developer/go
 PATH="$PATH:$GOROOT/bin:$GOPATH/bin"
 
+# Set up gvm
+[[ -s "/Users/luke/.gvm/scripts/gvm" ]] && source "/Users/luke/.gvm/scripts/gvm"
+
 # Include /usr/local/sbin in PATH to prevent Homebrew warnings
 PATH="/usr/local/sbin:$PATH"
 
