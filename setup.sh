@@ -33,6 +33,9 @@ mkdir -p ~/.nvm
 # create directory for todo.sh addons
 mkdir -p ~/.todo.actions.d
 
+# create directory for warp terminal
+mkdir -p ~/.warp/themes/
+
 # create Developer directory
 mkdir -p ~/Developer
 
@@ -50,9 +53,9 @@ for file in $files; do
     ln -s $dir/$file ~/$file
 done
 # specific files to symlink
-ln -s $dir/hyper-config.json ~/Library/Application\ Support/Hyper/config.json
 ln -s $dir/lima-overrides.yaml ~/.lima/_config/override.yaml
 ln -s $dir/nvm-default-packages ~/.nvm/default-packages
+ln -s $dir/.warp/themes/snazzy.yaml ~/.warp/themes/snazzy.yaml
 echo "Symlinks created."
 
 echo ""
