@@ -20,6 +20,10 @@ setopt extendedhistory
 # pound sign in interactive prompt
 setopt interactivecomments
 
+# ensure DOCKER_HOST points to the right place when using Colima,
+# since it won't work at the default /var/run/docker.sock
+export DOCKER_HOST=unix:///Users/$USER/.colima/docker.sock
+
 # initialize rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
